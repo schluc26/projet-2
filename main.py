@@ -9,8 +9,8 @@ def draw(): # Pygame Zero draw function
     screen.blit('background', (0, 0))
     player.image = player.images[math.floor(player.status/6)]
     player.draw()
-    drawbatarangs()
-    drawjokerface()
+    drawBatarangs()
+    drawJokers()
     drawBases()
     screen.draw.text(str(score) , topright=(780, 10), owidth=0.5, ocolor=(255,255,255), color=(0,64,255) , fontsize=60)
     if player.status >= 30:
@@ -22,22 +22,22 @@ def update(): # Pygame Zero update function
     global moveCounter,player
     if player.status < 30 and len(jokers) > 0:
         checkKeys()
-        updatebatarangs()
+        updateBatarangs()
         moveCounter += 1
     if moveCounter == moveDelay:
         moveCounter = 0
-        updatejokerface() 
+        updateJokers() 
     if player.status > 0: player.status += 1
     else:
       if keyboard.RETURN: init()
 
-def drawjokers():
+def drawJokers():
     for a in range(len(jokers)): jokers[a].draw()
 
 def drawBases():
     for b in range(len(bases)): bases[b].drawClipped()
 
-def drawbatarang():
+def drawBatarang():
     for l in range(len(batarangs)): batarangs[l].draw()
 
 def checkKeys():
@@ -55,7 +55,7 @@ def checkKeys():
             batarangs[l].status = 0
             batarangs[l].type = 1
 
-def makeLaserActive():
+def makeBatarangsActive():
     global player
     player.laserActive = 1
             
@@ -65,7 +65,7 @@ def checkBases():
             if bases[b].height < 5:
                 del bases[b]
 
-def updatebatarangs():
+def updateBatarangs():
     global batarangs, jokers
     for l in range(len(batarangs)):
         if batarangs[l].type == 0:
@@ -85,7 +85,7 @@ def listCleanup(l):
         if l[i].status == 0: newList.append(l[i])
     return newList
     
-def checkLaserHit(l):
+def checkBatarHit(l):
     global player
     if player.collidepoint((batarangs[l].x, batarangs[l].y)):
         player.status = 1
@@ -116,7 +116,7 @@ def updateJokers():
     for a in range(len(jokers)):
         animate(jokers[a], pos=(jokers[a].x + movex, jokers[a].y + movey), duration=0.5, tween='linear')
         if randint(0, 1) == 0:
-            jokers[a].image = "jokerface"
+            jokers[a].image = "jokers"
             if randint(0, 5) == 0:
                 batarangs.append(Actor("laser1", (jokers[a].x,jokers[a].y)))
                 batarangs[len(batarangs)-1].status = 0
@@ -140,7 +140,7 @@ def initjokers():
     global jokers
     jokers = []
     for a in range(18):
-        jokers.append(Actor("jokerface", (210+(a % 6)*80,100+(int(a/6)*64))))
+        jokers.append(Actor("jokers", (210+(a % 6)*80,100+(int(a/6)*64))))
         jokers[a].status = 0
 
 def drawClipped(self):
