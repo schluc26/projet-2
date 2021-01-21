@@ -1,0 +1,2 @@
+run="pgzrun main.py"
+onBoot="sleep 5s && pkill pyls"
