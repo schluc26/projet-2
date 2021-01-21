@@ -9,7 +9,7 @@ def draw(): # Pygame Zero draw function
     screen.blit('background', (0, 0))
     player.image = player.images[math.floor(player.status/6)]
     player.draw()
-    #drawbatarangs()
+    drawbatarangs()
     drawjokerface()
     drawBases()
     screen.draw.text(str(score) , topright=(780, 10), owidth=0.5, ocolor=(255,255,255), color=(0,64,255) , fontsize=60)
