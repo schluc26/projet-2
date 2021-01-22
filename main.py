@@ -1,19 +1,20 @@
 import pgzrun
 from random import randint
 import math
-DIFFICULTY = 1
+WIDTH = 800
+HEIGHT = 600
 DIFFICULTY = 1
 player = Actor("beyond", (400, 550)) # Load in the player Actor image
 
 def draw(): # Pygame Zero draw function
     screen.blit('background', (0, 0))
-    player.image = player.images[math.floor(player.status/6)]
+   # player.image = player.images[math.floor(player.status/6)]
     player.draw()
     drawBatarangs()
     drawJokers()
     drawBases()
     screen.draw.text(str(score) , topright=(780, 10), owidth=0.5, ocolor=(255,255,255), color=(0,64,255) , fontsize=60)
-    if player.status >= 30:
+    if player.status >= 6:
         screen.draw.text("GAME OVER\nPress Enter to play again" , center=(400, 300), owidth=0.5, ocolor=(255,255,255), color=(255,64,0) , fontsize=60)
     if len(jokers) == 0 :
         screen.draw.text("YOU WON!\nPress Enter to play again" , center=(400, 300), owidth=0.5, ocolor=(255,255,255), color=(255,64,0) , fontsize=60)
@@ -37,7 +38,7 @@ def drawJokers():
 def drawBases():
     for b in range(len(bases)): bases[b].drawClipped()
 
-def drawBatarang():
+def drawBatarangs():
     for l in range(len(batarangs)): batarangs[l].draw()
 
 def checkKeys():
@@ -49,7 +50,7 @@ def checkKeys():
     if keyboard.space:
         if player.laserActive == 1:
             player.laserActive = 0
-            clock.schedule(makeLaserActive, 1.0)
+            clock.schedule(makeBatarangsActive, 1.0)
             l = len(batarangs)
             batarangs.append(Actor("batarangs", (player.x,player.y-32)))
             batarangs[l].status = 0
@@ -70,7 +71,7 @@ def updateBatarangs():
     for l in range(len(batarangs)):
         if batarangs[l].type == 0:
             batarangs[l].y += (2*DIFFICULTY)
-            checkLaserHit(l)
+            checkBatarangHit(l)
             if batarangs[l].y > 600: batarangs[l].status = 1
         if batarangs[l].type == 1:
             batarangs[l].y -= 5
@@ -85,7 +86,7 @@ def listCleanup(l):
         if l[i].status == 0: newList.append(l[i])
     return newList
     
-def checkBatarHit(l):
+def checkBatarangHit(l):
     global player
     if player.collidepoint((batarangs[l].x, batarangs[l].y)):
         player.status = 1
@@ -118,7 +119,7 @@ def updateJokers():
         if randint(0, 1) == 0:
             jokers[a].image = "jokers"
             if randint(0, 5) == 0:
-                batarangs.append(Actor("laser1", (jokers[a].x,jokers[a].y)))
+                batarangs.append(Actor("batarangs", (jokers[a].x,jokers[a].y)))
                 batarangs[len(batarangs)-1].status = 0
                 batarangs[len(batarangs)-1].type = 0
         if jokers[a].y > player.y and player.status == 0:
@@ -133,7 +134,7 @@ def init():
     moveCounter = moveSequence = player.status = score = player.laserCountdown = 0
     batarangs = []
     moveDelay = 30
-    player.images = ["beyond","explosion1","explosion2","explosion3","explosion4","explosion5"]
+    #player.images = ["beyond","explosion1","explosion2","explosion3","explosion4","explosion5"]
     player.laserActive = 1
 
 def initjokers():
