@@ -15,22 +15,22 @@ def draw(): # Pygame Zero draw function
     drawBases()
     screen.draw.text(str(score) , topright=(780, 10), owidth=0.5, ocolor=(255,255,255), color=(0,64,255) , fontsize=60)
     if player.status >= 6:
-        screen.draw.text("GAME OVER\nPress Enter to play again" , center=(400, 300), owidth=0.5, ocolor=(255,255,255), color=(255,64,0) , fontsize=60)
+        screen.draw.text("GAME OVER\nPress Stop and run to play again" , center=(400, 300), owidth=0.5, ocolor=(255,255,255), color=(255,64,0) , fontsize=60)
     if len(jokers) == 0 :
         screen.draw.text("YOU WON!\nPress Enter to play again" , center=(400, 300), owidth=0.5, ocolor=(255,255,255), color=(255,64,0) , fontsize=60)
         
 def update(): # Pygame Zero update function
     global moveCounter,player
-    if player.status < 30 and len(jokers) > 0:
-        checkKeys()
+    checkKeys()
+    if player.status < 6 and len(jokers) > 0:
+        
         updateBatarangs()
         moveCounter += 1
     if moveCounter == moveDelay:
         moveCounter = 0
         updateJokers() 
     if player.status > 0: player.status += 1
-    else:
-      if keyboard.RETURN: init()
+    
 
 def drawJokers():
     for a in range(len(jokers)): jokers[a].draw()
@@ -55,6 +55,7 @@ def checkKeys():
             batarangs.append(Actor("batarangs", (player.x,player.y-32)))
             batarangs[l].status = 0
             batarangs[l].type = 1
+if keyboard.RETURN: init()
 
 def makeBatarangsActive():
     global player
@@ -168,3 +169,5 @@ def initBases():
             bc +=1
     
 init()
+
+#Code by Lucy Hattersley. 
