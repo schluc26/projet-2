@@ -1,7 +1,7 @@
 import pgzrun
 from random import randint
 import math
-WIDTH = 800
+WIDTH = 700
 HEIGHT = 600
 DIFFICULTY = 1
 player = Actor("beyond", (400, 550)) # Load in the player Actor image
@@ -15,7 +15,7 @@ def draw(): # Pygame Zero draw function
     drawBases()
     screen.draw.text(str(score) , topright=(780, 10), owidth=0.5, ocolor=(255,255,255), color=(0,64,255) , fontsize=60)
     if player.status >= 6:
-        screen.draw.text("GAME OVER\nPress Stop and run to play again" , center=(400, 300), owidth=0.5, ocolor=(255,255,255), color=(255,64,0) , fontsize=60)
+        screen.draw.text("GAME OVER\nPress Enter to play again" , center=(400, 300), owidth=0.5, ocolor=(255,255,255), color=(255,64,0) , fontsize=60)
     if len(jokers) == 0 :
         screen.draw.text("YOU WON!\nPress Enter to play again" , center=(400, 300), owidth=0.5, ocolor=(255,255,255), color=(255,64,0) , fontsize=60)
         
