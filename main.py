@@ -13,7 +13,7 @@ def draw(): # Pygame Zero draw function
     drawBatarangs()
     drawJokers()
     drawBases()
-    screen.draw.text(str(score) , topright=(780, 10), owidth=0.5, ocolor=(255,255,255), color=(0,64,255) , fontsize=60)
+    screen.draw.text(str(score) , topright=(780, 10), owidth=0.5, ocolor=(255,255,255), color= (0,64,255) , fontsize=60)
     if player.status >= 6:
         screen.draw.text("GAME OVER\nPress Enter to play again" , center=(400, 300), owidth=0.5, ocolor=(255,255,255), color=(255,64,0) , fontsize=60)
     if len(jokers) == 0 :
@@ -171,3 +171,4 @@ def initBases():
 init()
 
 #Code by Lucy Hattersley. 
+#https://github.com/TechnoVisual/Pygame-Zero/blob/master/invaders/invaders1.py
